@@ -15,8 +15,40 @@ class App extends React.Component {
 				this.setState({
 					contacts:response.data
 				})
-			}
-		)
+			})
+	}
+
+	createUser = (event)=>{
+		event.preventDefault();
+		axios
+			.post(
+				'https://desolate-thicket-29906.herokuapp.com/api/contacts',
+				{
+					name:this.state.newPersonName,
+					age:this.state.newPersonAge
+				}
+			).then(()=>{
+				axios
+					.get('https://desolate-thicket-29906.herokuapp.com/api/contacts')
+					.then((response)=>{
+						this.setState({
+							contacts:response.data
+						})
+					})
+			})
+	}
+
+	changeNewPersonName = (event)=>{
+		this.setState({
+			newPersonName: event.target.value
+		})
+	}
+
+	changeNewPersonAge = (event)=>{
+		this.setState({
+			newPersonAge: event.target.value
+		})
+
 	}
 
 	render = ()=>{
@@ -34,9 +66,9 @@ class App extends React.Component {
 			</section>
 			<section>
 				<h2>Create a new Contact</h2>
-				<form>
-					Name: <input type="text"/><br/>
-					Age: <input type="number"/><br/>
+				<form onSubmit={this.createUser}>
+					Name: <input type="text" onKeyUp={this.changeNewPersonName} /><br/>
+					Age: <input type="number" onKeyUp={this.changeNewPersonAge} /><br/>
 					<input type="submit" value="Create Contact" />
 				</form>
 			</section>
