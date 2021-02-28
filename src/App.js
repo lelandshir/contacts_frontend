@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import axios from 'axios';
+import Person from './components/person.js'
 
 class App extends React.Component {
 
@@ -59,7 +60,7 @@ class App extends React.Component {
 				<ul>
 					{
 						this.state.contacts.map((contact)=>{
-							return <li key={contact.id}>{contact.name} is {contact.age} years old</li>
+							return <Person data={contact} />
 						})
 					}
 				</ul>
