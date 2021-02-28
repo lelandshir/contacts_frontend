@@ -9,7 +9,7 @@ class App extends React.Component {
 		contacts: []
 	}
 
-	componentDidMount = ()=>{
+	getPeople = ()=>{
 		axios
 			.get('https://desolate-thicket-29906.herokuapp.com/api/contacts')
 			.then((response)=>{
@@ -17,6 +17,10 @@ class App extends React.Component {
 					contacts:response.data
 				})
 			})
+	}
+
+	componentDidMount = ()=>{
+		this.getPeople();
 	}
 
 	createUser = (event)=>{
@@ -29,13 +33,7 @@ class App extends React.Component {
 					age:this.state.newPersonAge
 				}
 			).then(()=>{
-				axios
-					.get('https://desolate-thicket-29906.herokuapp.com/api/contacts')
-					.then((response)=>{
-						this.setState({
-							contacts:response.data
-						})
-					})
+				this.getPeople();
 			})
 	}
 
@@ -60,7 +58,7 @@ class App extends React.Component {
 				<ul>
 					{
 						this.state.contacts.map((contact)=>{
-							return <Person data={contact} />
+							return <Person refreshCallback={this.getPeople} data={contact} />
 						})
 					}
 				</ul>
