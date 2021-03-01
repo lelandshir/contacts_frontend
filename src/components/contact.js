@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 
 
-class Person extends React.Component {
-	deletePerson = ()=>{
+class Contact extends React.Component {
+	deleteContact = ()=>{
 		axios
 			.delete(
 				`https://desolate-thicket-29906.herokuapp.com/api/contacts/${this.props.data.id}`
@@ -12,7 +12,7 @@ class Person extends React.Component {
 			})
 	}
 
-	updatePerson = (event)=>{
+	updateContact = (event)=>{
 		event.preventDefault();
 		axios
 			.put(
@@ -41,8 +41,8 @@ class Person extends React.Component {
 	render = ()=>{
 		return <li key={this.props.data.id}>
 			{this.props.data.name} is {this.props.data.age} years old
-			<button onClick={this.deletePerson}>Delete</button>
-			<form onSubmit={this.updatePerson}>
+			<button onClick={this.deleteContact}>Delete</button>
+			<form onSubmit={this.updateContact}>
 				<input type="text" onKeyUp={this.changeName} />
 				<input type="number" onKeyUp={this.changeAge} />
 				<input type="submit" value="Update"/>
@@ -51,4 +51,4 @@ class Person extends React.Component {
 	}
 }
 
-export default Person
+export default Contact
