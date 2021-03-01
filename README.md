@@ -1,4 +1,4 @@
-todo: instructions, better naming, test clone/deploy
+todo: instructions, test clone/deploy
 
 # Getting Started with Create React App
 

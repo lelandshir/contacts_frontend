@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import axios from 'axios';
-import Person from './components/person.js'
+import Contact from './components/contact.js'
 
 class App extends React.Component {
 
@@ -9,7 +9,7 @@ class App extends React.Component {
 		contacts: []
 	}
 
-	getPeople = ()=>{
+	getContacts = ()=>{
 		axios
 			.get('https://desolate-thicket-29906.herokuapp.com/api/contacts')
 			.then((response)=>{
@@ -20,32 +20,32 @@ class App extends React.Component {
 	}
 
 	componentDidMount = ()=>{
-		this.getPeople();
+		this.getContacts();
 	}
 
-	createUser = (event)=>{
+	createContact = (event)=>{
 		event.preventDefault();
 		axios
 			.post(
 				'https://desolate-thicket-29906.herokuapp.com/api/contacts',
 				{
-					name:this.state.newPersonName,
-					age:this.state.newPersonAge
+					name:this.state.newContactName,
+					age:this.state.newContactAge
 				}
 			).then(()=>{
-				this.getPeople();
+				this.getContacts();
 			})
 	}
 
-	changeNewPersonName = (event)=>{
+	changeNewContactName = (event)=>{
 		this.setState({
-			newPersonName: event.target.value
+			newContactName: event.target.value
 		})
 	}
 
-	changeNewPersonAge = (event)=>{
+	changeNewContactAge = (event)=>{
 		this.setState({
-			newPersonAge: event.target.value
+			newContactAge: event.target.value
 		})
 
 	}
@@ -58,16 +58,16 @@ class App extends React.Component {
 				<ul>
 					{
 						this.state.contacts.map((contact)=>{
-							return <Person refreshCallback={this.getPeople} data={contact} />
+							return <Contact refreshCallback={this.getContacts} data={contact} />
 						})
 					}
 				</ul>
 			</section>
 			<section>
 				<h2>Create a new Contact</h2>
-				<form onSubmit={this.createUser}>
-					Name: <input type="text" onKeyUp={this.changeNewPersonName} /><br/>
-					Age: <input type="number" onKeyUp={this.changeNewPersonAge} /><br/>
+				<form onSubmit={this.createContact}>
+					Name: <input type="text" onKeyUp={this.changeNewContactName} /><br/>
+					Age: <input type="number" onKeyUp={this.changeNewContactAge} /><br/>
 					<input type="submit" value="Create Contact" />
 				</form>
 			</section>
