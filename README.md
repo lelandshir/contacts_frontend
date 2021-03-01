@@ -1,4 +1,3 @@
-todo: instructions, test clone/deploy
 # Deployment Instructions
 
 ## Local Installation
