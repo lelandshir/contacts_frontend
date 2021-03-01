@@ -5,6 +5,7 @@
 - Fork this repo and then clone the fork to your local computer
 - Run `npm i` to install all dependencies
 - Run `npm start` to start local environment and automatically open browser
+- Update axios ajax urls to point to your API
 
 # Deploy to Heroku
 
