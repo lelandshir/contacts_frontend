@@ -1,79 +1,78 @@
-import './App.css';
-import React from 'react';
-import axios from 'axios';
-import Contact from './components/contact.js'
+import "./App.css";
+import React from "react";
+import axios from "axios";
+import Contact from "./components/contact.js";
 
 class App extends React.Component {
-
 	state = {
-		contacts: []
-	}
+		contacts: [],
+	};
 
-	getContacts = ()=>{
+	getContacts = () => {
 		axios
-			.get('https://desolate-thicket-29906.herokuapp.com/api/contacts')
-			.then((response)=>{
+			.get("https://djangoscontacts.herokuapp.com/api/contacts")
+			.then((response) => {
 				this.setState({
-					contacts:response.data
-				})
-			})
-	}
+					contacts: response.data,
+				});
+			});
+	};
 
-	componentDidMount = ()=>{
+	componentDidMount = () => {
 		this.getContacts();
-	}
+	};
 
-	createContact = (event)=>{
+	createContact = (event) => {
 		event.preventDefault();
 		axios
-			.post(
-				'https://desolate-thicket-29906.herokuapp.com/api/contacts',
-				{
-					name:this.state.newContactName,
-					age:this.state.newContactAge
-				}
-			).then(()=>{
-				this.getContacts();
+			.post("https://djangoscontacts.herokuapp.com/api/contacts", {
+				name: this.state.newContactName,
+				age: this.state.newContactAge,
 			})
-	}
+			.then(() => {
+				this.getContacts();
+			});
+	};
 
-	changeNewContactName = (event)=>{
+	changeNewContactName = (event) => {
 		this.setState({
-			newContactName: event.target.value
-		})
-	}
+			newContactName: event.target.value,
+		});
+	};
 
-	changeNewContactAge = (event)=>{
+	changeNewContactAge = (event) => {
 		this.setState({
-			newContactAge: event.target.value
-		})
+			newContactAge: event.target.value,
+		});
+	};
 
-	}
-
-	render = ()=>{
-		return <main>
-			<h1>Contacts App</h1>
-			<section>
-				<h2>List of Current Conacts</h2>
-				<ul>
-					{
-						this.state.contacts.map((contact)=>{
-							return <Contact refreshCallback={this.getContacts} data={contact} />
-						})
-					}
-				</ul>
-			</section>
-			<section>
-				<h2>Create a new Contact</h2>
-				<form onSubmit={this.createContact}>
-					Name: <input type="text" onKeyUp={this.changeNewContactName} /><br/>
-					Age: <input type="number" onKeyUp={this.changeNewContactAge} /><br/>
-					<input type="submit" value="Create Contact" />
-				</form>
-			</section>
-		</main>
-	}
-
+	render = () => {
+		return (
+			<main>
+				<h1>Contacts App</h1>
+				<section>
+					<h2>List of Current Conacts</h2>
+					<ul>
+						{this.state.contacts.map((contact) => {
+							return (
+								<Contact refreshCallback={this.getContacts} data={contact} />
+							);
+						})}
+					</ul>
+				</section>
+				<section>
+					<h2>Create a new Contact</h2>
+					<form onSubmit={this.createContact}>
+						Name: <input type="text" onKeyUp={this.changeNewContactName} />
+						<br />
+						Age: <input type="number" onKeyUp={this.changeNewContactAge} />
+						<br />
+						<input type="submit" value="Create Contact" />
+					</form>
+				</section>
+			</main>
+		);
+	};
 }
 
 export default App;
